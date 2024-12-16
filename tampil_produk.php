@@ -22,7 +22,7 @@ $result = $conn->query($sql);
         <td><?= $row['stok']; ?></td>
         <td><img src="uploads/<?= $row['gambar']; ?>" width="50"></td>
         <td>
-            <a href="edit.php?id=<?= $row['id']; ?>">Edit</a> |
+            <a href="edit_produk.php?id=<?= $row['id']; ?>">Edit</a> |
             <a href="hapus.php?id=<?= $row['id']; ?>" onclick="return confirm('Hapus data?')">Hapus</a>
         </td>
     </tr>

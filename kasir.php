@@ -20,7 +20,7 @@
     <nav>
       <div class="navbar">
         <a href="riwayat.php" class="riwayat-btn">Riwayat</a>
-        <a href="#" class="brand">Banjar Buah</a>
+        <a class="brand">Banjar Buah</a>
         <a href="logout.php" class="logout-btn">Logout</a>
       </div>
     </nav>
@@ -78,6 +78,6 @@
     </div>
 
     <!-- JS -->
-    <script src="script.js"></script>
+    <script src="js/kasir.js"></script>
 </body>
 </html>
