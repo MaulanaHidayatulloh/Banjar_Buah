@@ -17,16 +17,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_file = $target_dir . basename($gambar);
 
         move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file);
-        $sql = "UPDATE buah SET nama_buah = '$nama_buah', harga = '$harga', stok = '$stok', gambar = '$gambar' WHERE id = $id";
+        $sql = "UPDATE produk_buah SET nama_buah = '$nama_buah', harga = '$harga', stok = '$stok', gambar = '$gambar' WHERE id = $id";
     } else {
-        $sql = "UPDATE buah SET nama_buah = '$nama_buah', harga = '$harga', stok = '$stok' WHERE id = $id";
+        $sql = "UPDATE produk_buah SET nama_buah = '$nama_buah', harga = '$harga', stok = '$stok' WHERE id = $id";
     }
 
     if ($conn->query($sql) === TRUE) {
-        echo "Data berhasil diupdate.";
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil diupdate.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'admin.php'; // Redirect ke halaman admin setelah alert
+                });
+            });
+        </script>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan: " . addslashes($conn->error) . "',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>";
     }
+    
 }
 ?>
 
@@ -44,11 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     
-    
+    <!-- Sweet Alert 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Tambah Produk Buah</title>
     <script src="js/tambah_buah.js" defer></script>
 </head>
-<body>
+<body class="kasir-container">
     <!-- Navbar -->
     <nav>
       <div class="navbar">
@@ -72,20 +97,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="tambah-produk-section">
                         <div class="tambah-produk-ket">
                             <p>Nama Buah :</p>
-                            <input type="text" name="nama_buah"  value="<?= $row['nama_buah']; ?>" required>
+                            <input type="text" name="nama_buah"  value="<?= $row['nama_buah']; ?>">
                         </div>
                         <div class="tambah-produk-ket">
                             <p>Harga :</p> 
-                            <input type="number" name="harga" value="<?= $row['harga']; ?>" required>
+                            <input type="number" name="harga" value="<?= $row['harga']; ?>">
                         </div>
                         <div class="tambah-produk-ket">
                             <p>Stok :</p>
-                            <input type="number" step="0.1" name="stok" value="<?= $row['stok']; ?>" required>
+                            <div class="stok-input">
+                                <input type="number" id="stok-produkBuah" step="0.1" name="stok" value="<?= $row['stok']; ?>">
+                                <button type="button" id="increment-btn">+</button>
+                                <button type="button" id="decrement-btn">−</button>
+                            </div>
                         </div>
                     </div>
                     <div class="tambah-produk-image">
                         <p>Gambar :</p> 
-                        <input type="file" name="gambar" accept="image/*" onchange="previewImage(event)" required>
+                        <input type="file" name="gambar" accept="image/*" onchange="previewImage(event)">
                     
                         <!-- Preview Gambar -->
                         <img id="preview-gambar" src="#" alt="Preview Gambar">
@@ -102,12 +131,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
-
-
-<!-- <form action="" method="post" enctype="multipart/form-data">
-    Nama Buah: <input type="text" name="nama_buah" value="<?= $row['nama_buah']; ?>" required><br>
-    Harga: <input type="number" name="harga" value="<?= $row['harga']; ?>" required><br>
-    Stok: <input type="number" name="stok" value="<?= $row['stok']; ?>" required><br>
-    Gambar: <input type="file" name="gambar"><br>
-    <button type="submit">Update</button>
-</form> -->

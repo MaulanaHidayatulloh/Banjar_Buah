@@ -10,14 +10,14 @@ $(document).ready(function () {
     cartBody.empty();
     cart.forEach((item) => {
       cartBody.append(`
-                <tr>
-                    <td class="td-nama-buah">${item.namaBuah}</td>
-                    <td>${item.jumlahBeli} Kg</td>
-                    <td class="td-sub-total">Rp ${item.harga.toLocaleString(
-                      "id-ID"
-                    )}</td>
-                </tr>
-            `);
+        <tr>
+            <td class="td-nama-buah">${item.namaBuah}</td>
+            <td>${item.jumlahBeli} Kg</td>
+            <td class="td-sub-total">Rp ${item.harga.toLocaleString(
+              "id-ID"
+            )}</td>
+        </tr>
+      `);
     });
     $("#total-harga").text(`Rp ${totalHarga.toLocaleString("id-ID")}`);
   }
@@ -34,7 +34,12 @@ $(document).ready(function () {
     const jumlahBeli = parseFloat($("#jumlah-beli").val());
 
     if (!namaBuah || jumlahBeli <= 0) {
-      alert("Nama buah dan jumlah beli harus valid!");
+      Swal.fire({
+        title: "Peringatan!",
+        text: "Nama buah dan jumlah beli harus valid!",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
       return;
     }
 
@@ -59,7 +64,12 @@ $(document).ready(function () {
         $("#jumlah-beli").val("");
       },
       error: function () {
-        alert("Gagal mendapatkan harga produk!");
+        Swal.fire({
+          title: "Gagal!",
+          text: "Gagal mendapatkan harga produk!",
+          icon: "error",
+          confirmButtonText: "Coba Lagi",
+        });
       },
     });
   });
@@ -67,7 +77,12 @@ $(document).ready(function () {
   // Proses pembelian
   $("#beli-btn").click(function () {
     if (cart.length === 0) {
-      alert("Keranjang masih kosong!");
+      Swal.fire({
+        title: "Keranjang Kosong!",
+        text: "Silakan tambah barang ke dalam keranjang.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
       return;
     }
 
@@ -76,18 +91,29 @@ $(document).ready(function () {
       type: "POST",
       data: { cart: JSON.stringify(cart) },
       success: function (response) {
-        alert("Pembelian berhasil!");
-        cart = [];
-        totalHarga = 0;
-        updateCartTable();
+        Swal.fire({
+          title: "Pembelian Berhasil!",
+          text: "Pembelian Produk buah Berhasil dibeli.",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          // Reset keranjang setelah berhasil
+          cart = [];
+          totalHarga = 0;
+          updateCartTable();
+        });
       },
       error: function () {
-        alert("Gagal memproses pembelian!");
+        Swal.fire({
+          title: "Gagal!",
+          text: "Gagal memproses pembelian!",
+          icon: "error",
+          confirmButtonText: "Coba Lagi",
+        });
       },
     });
   });
 });
-
 // ---------------------  batas ----------------------
 
 // fungsi max jumlah beli

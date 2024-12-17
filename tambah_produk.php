@@ -14,10 +14,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['simpan'])) {
     if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
         $sql = "INSERT INTO produk_buah (nama_buah, harga, stok, gambar) VALUES ('$nama_buah', '$harga', '$stok', '$gambar')";
         if ($conn->query($sql) === TRUE) {
-            echo "Data berhasil ditambahkan.";
+            echo "
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Produk Buah berhasil dibuat!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'admin.php';
+                    });
+                });
+            </script>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Terjadi kesalahan: " . addslashes($conn->error) . "',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            </script>";
         }
+        
     } else {
         echo "Upload gambar gagal.";
     }
@@ -37,11 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['simpan'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     
+    <!-- Sweet Alert 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <title>Tambah Produk Buah</title>
     <script src="js/tambah_buah.js" defer></script>
 </head>
-<body>
+<body class="kasir-container">
     <!-- Navbar -->
     <nav>
       <div class="navbar">
@@ -73,7 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['simpan'])) {
                         </div>
                         <div class="tambah-produk-ket">
                             <p>Stok :</p>
-                            <input type="number" step="0.1" name="stok" required>
+                            <div class="stok-input">
+                                <input type="number" id="stok-produkBuah" step="0.1" name="stok" required>
+                                <button type="button" id="increment-btn">+</button>
+                                <button type="button" id="decrement-btn">−</button>
+                            </div>
                         </div>
                     </div>
                     <div class="tambah-produk-image">
