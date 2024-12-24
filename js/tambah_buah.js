@@ -32,14 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   incrementBtn.addEventListener("click", () => {
     let value = parseFloat(stokInput.value) || 0;
-    stokInput.value = (value + 0.1).toFixed(1); // Tambah 0.1
+    stokInput.value = (value + 0.1).toFixed(1);
   });
 
   decrementBtn.addEventListener("click", () => {
     let value = parseFloat(stokInput.value) || 0;
     if (value > 0) {
       // Hindari nilai negatif
-      stokInput.value = (value - 0.1).toFixed(1); // Kurangi 0.1
+      stokInput.value = (value - 0.1).toFixed(1);
     }
   });
 });

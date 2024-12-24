@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<?php
 include 'koneksi.php';
 
 $id = $_GET['id'];
@@ -32,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    window.location.href = 'admin.php'; // Redirect ke halaman admin setelah alert
+                    window.location.href = 'admin.php'; 
                 });
             });
         </script>";
@@ -71,13 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Tambah Produk Buah</title>
+
+    <!-- JavaScript -->
     <script src="js/tambah_buah.js" defer></script>
 </head>
 <body class="kasir-container">
     <!-- Navbar -->
     <nav>
       <div class="navbar">
-        <a href="riwayat.php" class="riwayat-btn">Riwayat</a>
+        <a href="riwayat_penjualan.php" class="riwayat-btn">Riwayat</a>
         <a class="brand">Banjar Buah</a>
         <a href="logout.php" class="logout-btn">Logout</a>
       </div>

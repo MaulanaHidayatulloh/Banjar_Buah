@@ -51,7 +51,7 @@ $result = $conn->query($sql);
     <!-- Navbar -->
     <nav>
       <div class="navbar">
-        <a href="riwayat.php" class="riwayat-btn">Riwayat</a>
+        <a href="riwayat_penjualan.php" class="riwayat-btn">Riwayat</a>
         <a class="brand">Banjar Buah</a>
         <a href="logout.php" class="logout-btn">Logout</a>
       </div>
@@ -112,7 +112,7 @@ $result = $conn->query($sql);
     </div>
 
 <script>
-// SweetAlert2 dan logic lainnya
+// SweetAlert2
 const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success',  

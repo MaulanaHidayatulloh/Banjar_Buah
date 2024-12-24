@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +31,7 @@
     <!-- Navbar -->
     <nav>
       <div class="navbar">
-        <a href="riwayat.php" class="riwayat-btn">Riwayat</a>
+        <a href="riwayat_penjualan.php" class="riwayat-btn">Riwayat</a>
         <a class="brand">Banjar Buah</a>
         <a href="logout.php" class="logout-btn">Logout</a>
       </div>
@@ -55,7 +63,7 @@
 
                 <div class="form-row">
                     <label for="jumlah-beli">Jumlah Beli (Kg)</label>
-                    <input type="number" id="jumlah-beli" min="0.1" step="0.1">
+                    <input type="number" id="jumlah-beli" min="0.1" step="0.1" required>
                 </div>
                 <div class="form-row">                
                     <button id="cancel-btn" class="btn-cancel">Cancel</button>

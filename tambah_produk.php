@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<?php
 include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['simpan'])) {
@@ -70,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['simpan'])) {
     <!-- Navbar -->
     <nav>
       <div class="navbar">
-        <a href="riwayat.php" class="riwayat-btn">Riwayat</a>
+        <a href="riwayat_penjualan.php" class="riwayat-btn">Riwayat</a>
         <a class="brand">Banjar Buah</a>
         <a href="logout.php" class="logout-btn">Logout</a>
       </div>

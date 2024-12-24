@@ -1,76 +1,97 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+// Proses login
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username_email = $_POST['username_email'];
+    $password = $_POST['password'];
+
+    // Query untuk cek username/email
+    $sql = "SELECT * FROM admin WHERE username = ? OR email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username_email, $username_email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        // Validasi password
+        if (password_verify($password, $row['password'])) {
+            // Set session
+            $_SESSION['username'] = $row['username'];
+            header("Location: admin.php");
+            exit();
+        } else {
+            // Jika password salah
+            echo "
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: 'Password salah.',
+                        icon: 'error',
+                        confirmButtonText: 'Coba Lagi'
+                    }).then(() => {
+                        window.location.href = 'login.php';
+                    });
+                });
+            </script>";
+            exit();
+        }
+    } else {
+        // Jika username/email tidak ditemukan
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'Username atau Email tidak ditemukan.',
+                    icon: 'error',
+                    confirmButtonText: 'Coba Lagi'
+                }).then(() => {
+                    window.location.href = 'login.php';
+                });
+            });
+        </script>";
+        exit();
+    }
+    $stmt->close();
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
-    <!-- SweetAlert2 CDN -->
+
+     <!-- CSS -->
+     <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(to right, #53c358, #9ed32d);
-        }
-        .login-container {
-            background-color: #FFDA44;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 350px;
-        }
-        h2 {
-            text-align: center;
-            color: #000;
-            margin-bottom: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-        }
-        .btn-login {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #ff9f43;
-            color: #000;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-login:hover {
-            background-color: #ff8f33;
-        }
-        small {
-            color: red;
-            font-size: 12px;
-            display: block;
-            text-align: center;
-        }
-    </style>
 </head>
-<body>
+<body class="login-admin">
     <div class="login-container">
         <h2>Login Admin</h2>
-        <form action="proses_login.php" method="POST">
-            <label for="username_email">Username atau Email</label>
-            <input type="text" name="username_email" id="username_email" placeholder="Username atau Email" required>
-
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password" required>
-
+        <form action="" method="POST">
+            <div>
+                <label for="username_email">Username/Email</label>
+                <input type="text" name="username_email" id="username_email" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+            </div>
             <small>*Login khusus Admin</small>
 
             <button type="submit" class="btn-login">LOGIN</button>

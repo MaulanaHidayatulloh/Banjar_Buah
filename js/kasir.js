@@ -33,7 +33,7 @@ $(document).ready(function () {
     const namaBuah = $("#nama-buah").val();
     const jumlahBeli = parseFloat($("#jumlah-beli").val());
 
-    if (!namaBuah || jumlahBeli <= 0) {
+    if (!namaBuah || !jumlahBeli || jumlahBeli <= 0) {
       Swal.fire({
         title: "Peringatan!",
         text: "Nama buah dan jumlah beli harus valid!",
