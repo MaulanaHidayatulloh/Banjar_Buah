@@ -89,7 +89,7 @@ $conn->close();
                 <input type="text" name="username_email" id="username_email" required>
             </div>
             <div>
-                <label for="password">Password</label>
+                <label for="password" class="password-login-admin">Password</label>
                 <input type="password" name="password" id="password" required>
             </div>
             <small>*Login khusus Admin</small>

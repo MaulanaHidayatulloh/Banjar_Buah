@@ -22,7 +22,7 @@
     <nav>
       <div class="navbar">
         <a href="#" class="brand">Banjar Buah</a>
-        <a href="login.php" class="login-btn">Login Admin</a>
+        <a href="login.php" class="login-btn">Login <span>Admin</span></a>
       </div>
     </nav>
 

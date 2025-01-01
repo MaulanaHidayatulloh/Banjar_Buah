@@ -146,6 +146,27 @@ nav {
 /* Home Akhir */
 
 /* Page Semua Buah */
+/* Jika stok produk habis */
+.out-of-stock {
+  background-color: #acacac !important;
+}
+
+.out-of-stock img {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.out-of-stock h3,
+.out-of-stock p {
+  opacity: 0.5;
+}
+
+/* .out-of-stock:last-of-type {
+  order: 1;
+} */
+
+/* Batas */
+
 .semuabuah-container {
   margin: 30px 10px;
   padding: 20px;
@@ -212,12 +233,6 @@ nav {
 .judul-semuabuah {
   display: flex;
   align-items: center;
-  width: 700px;
-}
-
-.judul-semuabuah h3 {
-  font-size: 40px;
-  padding-left: 2rem;
 }
 
 .judul-semuabuah img {
@@ -229,7 +244,14 @@ nav {
 
 .ket-semuabuah {
   display: flex;
-  gap: 10rem;
+  align-items: center;
+  gap: 5rem;
+}
+
+.ket-semuabuah h3 {
+  font-size: 40px;
+  padding-left: 1rem;
+  width: 600px;
 }
 
 .ket-semuabuah p {
@@ -778,4 +800,268 @@ small {
   margin-left: 15rem;
   font-weight: bold;
   margin-bottom: 3rem;
+}
+/* Login akhir */
+
+/* Responsif */
+
+/* Versi Mobile */
+@media (max-width: 450px) {
+  /* Navbar */
+  nav {
+    padding: 1rem 25px;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .brand {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .login-btn {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+
+  .logout-btn {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+
+  .riwayat-btn {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+
+  /* Home */
+  /* Produk Buah */
+  .container {
+    margin: 10px 5px;
+    padding: 5px;
+  }
+
+  .product-title {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .product-title h2 {
+    font-size: 32px;
+  }
+
+  .view-all {
+    padding-bottom: 7px;
+    font-size: 13px;
+  }
+
+  /* Product Grid */
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .product-item {
+    padding: 8px;
+  }
+
+  .product-item img {
+    max-width: 75px;
+    height: 75px;
+    margin-bottom: 0;
+  }
+
+  .product-ket {
+    display: block;
+  }
+
+  .product-item h3 {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  .product-item p {
+    font-size: 15px;
+    margin-top: 0;
+  }
+  /* Home Akhir */
+
+  /* Page Semua Buah */
+  .semuabuah-container {
+    margin: 15px 5px;
+    padding: 5px;
+  }
+
+  .semuabuah-title {
+    margin-bottom: 20px;
+  }
+
+  .semuabuah-title h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .cari-buah {
+    padding: 7px;
+    gap: 12px;
+  }
+
+  .cari-buah input[type="text"] {
+    font-size: 18px;
+    padding-left: 5px;
+  }
+
+  .cari-buah button {
+    font-size: 18px;
+    margin-left: 12px;
+  }
+
+  .semuabuah-box {
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .judul-semuabuah img {
+    max-width: 75px;
+    height: 75px;
+  }
+
+  .ket-semuabuah {
+    display: block;
+    gap: 0;
+  }
+
+  .ket-semuabuah h3 {
+    font-size: 20px;
+    padding-left: 0;
+    width: auto;
+  }
+
+  .ket-semuabuah p {
+    font-size: 15px;
+  }
+  /* Semua Buah Akhir */
+
+  /* Page Login */
+  .login-container {
+    display: block;
+    padding: 2rem;
+  }
+
+  .login-container h2 {
+    margin-bottom: 25px;
+    font-size: 23px;
+  }
+
+  .login-container div {
+    gap: 10px;
+    font-size: 12px;
+    justify-content: left;
+  }
+
+  .login-container input {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+
+  .password-login-admin {
+    padding-right: 2.7rem;
+  }
+
+  .btn-login {
+    padding: 0.5rem 1.5rem;
+    font-size: 16px;
+  }
+
+  small {
+    font-size: 12px;
+    margin-left: 7rem;
+    margin-bottom: 1rem;
+  }
+  /* Login akhir */
+
+  /* Page admin */
+  .admin-container {
+    padding: 1.5rem;
+    margin: 0 10px;
+  }
+
+  .tambahProduk_admin {
+    font-size: 25px;
+    margin: 1rem 0;
+  }
+
+  .admin-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .judul-adminBuah {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+  }
+
+  .judul-adminBuah i {
+    font-size: 35px;
+    margin-right: 0;
+    margin-bottom: 7px;
+  }
+
+  .judul-adminBuah h3 {
+    font-size: 16px;
+    padding-left: 0;
+  }
+
+  .judul-adminBuah img {
+    max-width: 180px;
+    width: 180px;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 7px;
+  }
+
+  .ket-adminBuah {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: auto;
+    margin-bottom: 10px;
+  }
+
+  .ket-adminBuah p {
+    font-size: 13px;
+  }
+
+  .buttonAksi_admin {
+    gap: 20px;
+  }
+
+  .buttonAksi_admin a {
+    font-size: 13px;
+    padding: 5px 15px;
+    color: var(--color-text);
+  }
+
+  /* Admin Akhir */
 }

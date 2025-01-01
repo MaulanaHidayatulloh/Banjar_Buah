@@ -28,7 +28,7 @@
     <nav>
       <div class="navbar">
         <a href="index.php" class="brand">Banjar Buah</a>
-        <a href="login.php" class="login-btn">Login Admin</a>
+        <a href="login.php" class="login-btn">Login <span>Admin</span></a>
       </div>
     </nav>
 
@@ -61,24 +61,26 @@
         if ($search !== '') {
             $sql .= " WHERE nama_buah LIKE '%$search%'";
         }
-        $sql .= " ORDER BY nama_buah ASC";
+        $sql .= " ORDER BY stok = 0, nama_buah ASC";
 
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo '
-                <div class="semuabuah-box">
-                  <div class="judul-semuabuah">
-                    <img src="uploads/' . $row["gambar"] . '" alt="' . $row["nama_buah"] . '" />
-                    <h3>' . htmlspecialchars($row["nama_buah"]) . '</h3>
-                  </div>
-                  <div class="ket-semuabuah">
-                    <p>Rp. ' . number_format($row["harga"], 0, ',', '.') . '/Kg</p>
-                    <p>Stok: ' . $row["stok"] . ' Kg</p>
-                  </div>
-                </div>';
-            }
+          while ($row = $result->fetch_assoc()) {
+              $isOutOfStock = $row["stok"] == 0 ? 'out-of-stock' : '';
+      
+              echo '
+              <div class="semuabuah-box ' . $isOutOfStock . '">
+                <div class="judul-semuabuah">
+                  <img src="uploads/' . $row["gambar"] . '" alt="' . $row["nama_buah"] . '" />
+                </div>
+                <div class="ket-semuabuah">
+                  <h3>' . htmlspecialchars($row["nama_buah"]) . '</h3>
+                  <p>Rp. ' . number_format($row["harga"], 0, ',', '.') . '/Kg</p>
+                  <p>' . ($row["stok"] == 0 ? 'STOK HABIS' : 'Stok: ' . $row["stok"] . ' Kg') . '</p>
+                </div>
+              </div>';
+          }
         } else {
             echo '<p>Tidak ada produk yang sesuai dengan pencarian Anda.</p>';
         }
